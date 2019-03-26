@@ -1,0 +1,61 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="ejemplo-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>[[title]]</h2>
+    <input type="text" placeholder="[[placeholder]]" value="{{valorInput::change}}">
+    <input type="text" placeholder="[[placeholder]]" value="{{valorInput2::change}}">
+    <button on-click="_sendInfo">[[btnTexto]]</button>
+  </template>
+
+  <script>
+    /**
+     * `ejemplo-element`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class EjemploElement extends Polymer.Element {
+      static get is() { return 'ejemplo-element'; }
+      static get properties() {
+        return {
+          title: {
+            type: String,
+            value: ''
+          },
+          btnTexto: {
+            type: String
+          },
+          placeholder: {
+            type: String,
+            value: ''
+          },
+          valorInput: {
+            type: String,
+            value: ''
+          },
+          valorInput2: {
+            type: String,
+            value: ''
+          }
+        };
+      }
+      _sendInfo(){
+        console.log('Presione send');
+        console.log(this.valorInput);
+        console.log(this.valorInput2);
+        this.dispatchEvent(new CustomEvent('buscar',{detail:{uno:this.valorInput,dos:this.valorInput2}}));
+        //console.log(this.valorInput);
+      }
+    }
+    window.customElements.define(EjemploElement.is, EjemploElement);
+
+  </script>
+</dom-module>

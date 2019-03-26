@@ -1,0 +1,73 @@
+
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-slider/paper-slider.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="ejemplo-element.html">
+<link rel="import" href="tabla-element.html">
+<dom-module id="parent-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div>
+    	<ejemplo-element title="[[objetoProp.title]]" btn-texto="[[objetoProp.btnTexto]]" placeholder="[[objetoProp.placeholder]]" on-buscar="_showVar"></ejemplo-element>
+    	<tabla-element datostabla="[[objetoTabla]]"></tabla-element>
+    	<paper-input always-float-label label="Nuevo Componente"></paper-input>
+    	<paper-input label="username">
+		</paper-input>
+		<paper-slider value="50"></paper-slider>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `ejemplo-element`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ParentElement extends Polymer.Element {
+      static get is() { return 'parent-element'; }
+      static get properties() {
+        return {
+        	objetoProp:{
+        		type: Object,
+        		value: {title: 'Find Objecto', btnTexto: 'Send', placeholder: 'Pon Texto'}
+        	},
+        	objetoTabla:{
+        		type: Array,
+        		value(){
+              		return[
+                		{
+                  			primero: 'Leo',
+                  			segundo: 'Mau'
+                		},
+                		{
+                  			primero: 'CHarly',
+                  			segundo: 'Mariano'
+                		},
+                		{
+                  			primero: 'Adrian',
+                  			segundo: 'Terrazas'
+                		}
+              		];
+            	}
+        	}
+
+        };
+      }
+      _showVar(e){
+      	console.log(e);
+      	var pasaDatos=e.detail;
+      	this.push('objetoTabla',{primero: pasaDatos.uno,segundo: pasaDatos.dos});
+      }
+    }
+    window.customElements.define(ParentElement.is, ParentElement);
+
+  </script>
+</dom-module>
